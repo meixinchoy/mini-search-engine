@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <ctime>
 #include "searchEngine.h"
 
@@ -27,13 +28,15 @@ int main(int argc, char *argv[])
         }else{
             clock_t start = clock();
             searchEngine.registerFile(*it);
-            cout << *it << " indexed in: "<< (float)(clock()-start)/CLOCKS_PER_SEC << "second(s)";
+            cout << *it << " indexed in: "<< (float)(clock()-start)/CLOCKS_PER_SEC << "second(s)\n";
         }
     }
 
     if(showHelpFlag){
         showHelp();
     }
+
+    cout<< "\nstarting mini search engine... Enter '.' to quit\n\n";
 
     while(1){
         cout << "[mini search engine]: ";
@@ -42,7 +45,9 @@ int main(int argc, char *argv[])
         if (q == ".")
             break;
 
-        // TODO: set query
+        set<string> allPaths = searchEngine.getPaths(q);
+
+        searchEngine.showFiles(allPaths);
     }
 
     return 0;

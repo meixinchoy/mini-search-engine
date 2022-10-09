@@ -49,9 +49,6 @@ set<string> SearchEngine::getPaths(string &query){
             if(currentWord.size()>0){
                 tmpPaths = searchWordInTrie(this->root, currentWord);
                 allPaths.insert(tmpPaths.begin(), tmpPaths.end());
-                for(auto a:tmpPaths){
-                    cout<<a<<",";
-                }
                 currentWord = "";
             }
         }else{
@@ -60,12 +57,35 @@ set<string> SearchEngine::getPaths(string &query){
     }
     tmpPaths = searchWordInTrie(this->root, currentWord);
     allPaths.insert(tmpPaths.begin(), tmpPaths.end());
-    cout<<"ll\n\n";
-    for(auto a:allPaths){
-                    cout<<a<<",";
-                }
 
     return allPaths; 
 }
 
+void SearchEngine::showFiles(set<string> &allPaths){
+
+    if(allPaths.size() == 0){
+        cout << "\nno results found\n\n";
+        return;
+    }
+
+    for(auto it=allPaths.begin(); it!= allPaths.end(); it++){
+        ifstream docfile(*it);
+
+        string previewText="";
+
+        if (docfile.is_open()){
+            // print file:
+            while (previewText.size()<600 && docfile.good()) {
+                previewText += docfile.get();
+            }
+
+            if(docfile.good()){
+                previewText += "...";
+            }
+        }
+
+        cout << endl << *it << "-  " << previewText << endl;
+    }
+    cout << endl << allPaths.size() << " results found.\n\n"; 
+}
 

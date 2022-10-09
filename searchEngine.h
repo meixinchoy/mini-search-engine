@@ -14,6 +14,7 @@ class SearchEngine
         SearchEngine();
         void registerFile(string &docPath);
         set<string> getPaths(string &query);
+        void showFiles(set<string> &allPaths);
 };
 
 #endif // SEARCHENGINE_H
