@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <set>
-// #include <bits/stdc++.h>
+#include <map>
 
 using namespace std;
 
@@ -61,21 +61,38 @@ set<string> SearchEngine::getPaths(string &query){
     return allPaths; 
 }
 
-void SearchEngine::showFiles(set<string> &allPaths){
+map<string,double> SearchEngine::similarity(string &query, set<string> &allPaths) {
+    map<string,double> scores;
 
-    if(allPaths.size() == 0){
+    set<string> commonWords = getCommonWords(allPaths);
+    map<string, int> queryVector= vectoriseQuery(query, commonWords);
+
+    map<string, int> fileVector;
+    double cosim;
+    for(auto it = allPaths.begin(); it!= allPaths.end(); it++){
+        fileVector= vectoriseFile(*it, commonWords);
+        cosim = getCosim(queryVector,fileVector);
+        scores[*it]=cosim;
+    }
+
+    return scores;
+}
+
+void SearchEngine::showFiles(map<string,double> &simScores){
+
+    if(simScores.size() == 0){
         cout << "\nno results found\n\n";
         return;
     }
 
-    for(auto it=allPaths.begin(); it!= allPaths.end(); it++){
-        ifstream docfile(*it);
+    for(auto it=simScores.begin(); it!= simScores.end(); it++){
+        ifstream docfile(it->first);
 
         string previewText="";
 
         if (docfile.is_open()){
             // print file:
-            while (previewText.size()<600 && docfile.good()) {
+            while (previewText.size()<1000 && docfile.good()) {
                 previewText += docfile.get();
             }
 
@@ -84,8 +101,8 @@ void SearchEngine::showFiles(set<string> &allPaths){
             }
         }
 
-        cout << endl << *it << "-  " << previewText << endl;
+        cout << endl << it->first << " ["<< it->second << "] -  " << previewText << endl;
     }
-    cout << endl << allPaths.size() << " results found.\n\n"; 
+    cout << endl << simScores.size() << " results found.\n\n"; 
 }
 

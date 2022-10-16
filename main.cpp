@@ -47,7 +47,9 @@ int main(int argc, char *argv[])
 
         set<string> allPaths = searchEngine.getPaths(q);
 
-        searchEngine.showFiles(allPaths);
+        map<string,double> similarityScores = searchEngine.similarity(q, allPaths);
+
+        searchEngine.showFiles(similarityScores);
     }
 
     return 0;
