@@ -1,5 +1,5 @@
 to compile code:
-`g++ -std=c++0x *.cpp -o search-engine`
+`g++ -std=c++17 *.cpp -o search-engine`
 
 to run code:
 `./search-engine.exe <params> <filepath>`

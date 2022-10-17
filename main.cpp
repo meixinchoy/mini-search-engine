@@ -2,12 +2,15 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <filesystem>
 #include <ctime>
 #include "searchEngine.h"
+namespace fs = std::filesystem;
 
 using namespace std;
 
 void showHelp();
+void indexFile(SearchEngine &searchEngine, string filePath);
 
 int main(int argc, char *argv[])
 {
@@ -20,15 +23,22 @@ int main(int argc, char *argv[])
     }
 
     bool showHelpFlag = false;
+    bool isPathDir = false;
 
     vector<string>::iterator it;
     for(it=args.begin();it!=args.end();it++){
         if(*it == "--help"){
             showHelpFlag=true;
+        }else if(*it == "--dir"){
+            isPathDir=true;
         }else{
-            clock_t start = clock();
-            searchEngine.registerFile(*it);
-            cout << *it << " indexed in: "<< (float)(clock()-start)/CLOCKS_PER_SEC << "second(s)\n";
+            if(isPathDir == true){
+                for(const auto &file: fs::directory_iterator(*it)){
+                    indexFile(searchEngine, file.path().string());
+                }
+            }else{
+                indexFile(searchEngine, *it);
+            }
         }
     }
 
@@ -57,6 +67,16 @@ int main(int argc, char *argv[])
 
 void showHelp()
 {
-    cout << "\n\nhelp menu\n\n";
+    cout << "\n\nMini Search Engine\n"<<
+            "to launch:\n\t './search-engine.exe <params> <filepath(s)>'"<<
+            "\nparams: \n\t--help: show help menu\n\t --dir: index all files in the directory\n"<<
+            "filepath(s):\n\tinput all file/directory paths, separated by space\n\n";
 
+}
+
+void indexFile(SearchEngine &searchEngine, string filePath)
+{
+    clock_t start = clock();
+    searchEngine.registerFile(filePath);
+    cout << filePath << " indexed in: "<< (float)(clock()-start)/CLOCKS_PER_SEC << "second(s)\n";
 }

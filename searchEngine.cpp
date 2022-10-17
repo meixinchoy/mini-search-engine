@@ -85,7 +85,7 @@ void SearchEngine::showFiles(map<string,double> &simScores){
         return;
     }
 
-    for(auto it=simScores.begin(); it!= simScores.end(); it++){
+    for(auto it=simScores.rbegin(); it!= simScores.rend(); it++){
         ifstream docfile(it->first);
 
         string previewText="";
