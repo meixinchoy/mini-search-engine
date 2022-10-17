@@ -1,7 +1,7 @@
 #include "node.h"
 #include <bits/stdc++.h>
 #include <string>
-#include <set>
+#include <unordered_set>
 
 #define N 128
 
@@ -40,7 +40,7 @@ void addWordToTrie(struct TrieNode *root, string &word, string &docPath)
 }
 
 // search word in trie
-set<string> searchWordInTrie(TrieNode *root, string &word)
+unordered_set<string> searchWordInTrie(TrieNode *root, string &word)
 {
 	struct TrieNode *pCrawl = root;
 

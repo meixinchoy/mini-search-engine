@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <set>
+#include <unordered_set>
 #include <vector>
 #include <cmath>
 
@@ -37,11 +37,11 @@ vector<string> splitString(string path){
 }
 
 // vectorise files by words
-map<string,int> vectoriseFile(string filePath, set<string> &commonWords) {
+map<string,int> vectoriseFile(string filePath, unordered_set<string> &commonWords) {
     vector<string> words = splitString(filePath);
     map<string,int> fileVector;
 
-    set<string>::iterator _it;
+    unordered_set<string>::iterator _it;
     for(_it = commonWords.begin(); _it!= commonWords.end(); _it++){
         fileVector[*_it]=0;
     }
@@ -55,7 +55,7 @@ map<string,int> vectoriseFile(string filePath, set<string> &commonWords) {
 }
 
 // vectorise query by words
-map<string,int> vectoriseQuery(string query, set<string> &commonWords) {
+map<string,int> vectoriseQuery(string query, unordered_set<string> &commonWords) {
     vector<string> words;
     string currentWord="";
 
@@ -73,7 +73,7 @@ map<string,int> vectoriseQuery(string query, set<string> &commonWords) {
 
     map<string,int> queryVector;
 
-    set<string>::iterator _it;
+    unordered_set<string>::iterator _it;
     for(_it = commonWords.begin(); _it!= commonWords.end(); _it++){
         queryVector[*_it]=0;
     }
@@ -87,10 +87,10 @@ map<string,int> vectoriseQuery(string query, set<string> &commonWords) {
 }
 
 // get common words from all files
-set<string> getCommonWords(set<string> &allPaths){
-    set<string> commonWords;
+unordered_set<string> getCommonWords(unordered_set<string> &allPaths){
+    unordered_set<string> commonWords;
 
-    set<string>::iterator it;
+    unordered_set<string>::iterator it;
     for(it=allPaths.begin(); it!= allPaths.end(); it++){
         vector<string> words = splitString(*it);
 

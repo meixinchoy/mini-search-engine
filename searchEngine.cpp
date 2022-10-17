@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <set>
+#include <unordered_set>
 #include <map>
 
 using namespace std;
@@ -39,10 +39,10 @@ void SearchEngine::registerFile(string &docPath){
     docfile.close();
 }
 
-set<string> SearchEngine::getPaths(string &query){
+unordered_set<string> SearchEngine::getPaths(string &query){
     string currentWord="";
-    set<string> allPaths;
-    set<string> tmpPaths;
+    unordered_set<string> allPaths;
+    unordered_set<string> tmpPaths;
     
     for (auto it= query.begin(); it!=query.end(); it++) {
         if(isspace(*it)||(int)*it<0){
@@ -61,10 +61,10 @@ set<string> SearchEngine::getPaths(string &query){
     return allPaths; 
 }
 
-map<string,double> SearchEngine::similarity(string &query, set<string> &allPaths) {
+map<string,double> SearchEngine::similarity(string &query, unordered_set<string> &allPaths) {
     map<string,double> scores;
 
-    set<string> commonWords = getCommonWords(allPaths);
+    unordered_set<string> commonWords = getCommonWords(allPaths);
     map<string, int> queryVector= vectoriseQuery(query, commonWords);
 
     map<string, int> fileVector;

@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
         if (q == ".")
             break;
 
-        set<string> allPaths = searchEngine.getPaths(q);
+        unordered_set<string> allPaths = searchEngine.getPaths(q);
 
         map<string,double> similarityScores = searchEngine.similarity(q, allPaths);
 

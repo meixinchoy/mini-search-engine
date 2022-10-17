@@ -4,7 +4,7 @@
 #include "node.h"
 #include "similarity.h"
 #include <string>
-#include <set>
+#include <unordered_set>
 
 class SearchEngine
 {
@@ -14,9 +14,9 @@ class SearchEngine
     public:
         SearchEngine();
         void registerFile(string &docPath);
-        set<string> getPaths(string &query);
+        unordered_set<string> getPaths(string &query);
         void showFiles(map<string,double> &allPaths);
-        map<string,double> similarity(string &query, set<string> &allPaths);
+        map<string,double> similarity(string &query, unordered_set<string> &allPaths);
 
 };
 
