@@ -5,6 +5,7 @@
 #include <filesystem>
 #include <ctime>
 #include "searchEngine.h"
+
 namespace fs = std::filesystem;
 
 using namespace std;
@@ -69,7 +70,7 @@ void showHelp()
 {
     cout << "\n\nMini Search Engine\n"<<
             "to launch:\n\t './search-engine.exe <params> <filepath(s)>'"<<
-            "\nparams: \n\t--help: show help menu\n\t --dir: index all files in the directory\n"<<
+            "\nparams: \n\t--help: show this help menu\n\t --dir: index all files in the directory\n"<<
             "filepath(s):\n\tinput all file/directory paths, separated by space\n\n";
 
 }
