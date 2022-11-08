@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 
         unordered_set<string> allPaths = searchEngine.getPaths(q);
 
-        map<string,double> similarityScores = searchEngine.similarity(q, allPaths);
+        map<double,string> similarityScores = searchEngine.similarity(q, allPaths);
 
         searchEngine.showFiles(similarityScores);
     }

@@ -61,8 +61,8 @@ unordered_set<string> SearchEngine::getPaths(string &query){
     return allPaths; 
 }
 
-map<string,double> SearchEngine::similarity(string &query, unordered_set<string> &allPaths) {
-    map<string,double> scores;
+map<double,string> SearchEngine::similarity(string &query, unordered_set<string> &allPaths) {
+    map<double,string> scores;
 
     unordered_set<string> commonWords = getCommonWords(allPaths);
     map<string, int> queryVector= vectoriseQuery(query, commonWords);
@@ -72,13 +72,13 @@ map<string,double> SearchEngine::similarity(string &query, unordered_set<string>
     for(auto it = allPaths.begin(); it!= allPaths.end(); it++){
         fileVector= vectoriseFile(*it, commonWords);
         cosim = getCosim(queryVector,fileVector);
-        scores[*it]=cosim;
+        scores[cosim]=*it;
     }
 
     return scores;
 }
 
-void SearchEngine::showFiles(map<string,double> &simScores){
+void SearchEngine::showFiles(map<double,string> &simScores){
 
     if(simScores.size() == 0){
         cout << "\nno results found\n\n";
@@ -86,7 +86,7 @@ void SearchEngine::showFiles(map<string,double> &simScores){
     }
 
     for(auto it=simScores.rbegin(); it!= simScores.rend(); it++){
-        ifstream docfile(it->first);
+        ifstream docfile(it->second);
 
         string previewText="";
 
@@ -101,7 +101,7 @@ void SearchEngine::showFiles(map<string,double> &simScores){
             }
         }
 
-        cout << endl << it->first << " ["<< it->second << "] -  " << previewText << endl;
+        cout << endl << it->second << " ["<< it->first << "] -  " << previewText << endl;
     }
     cout << endl << simScores.size() << " results found.\n\n"; 
 }

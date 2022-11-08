@@ -15,8 +15,8 @@ class SearchEngine
         SearchEngine();
         void registerFile(string &docPath);
         unordered_set<string> getPaths(string &query);
-        void showFiles(map<string,double> &allPaths);
-        map<string,double> similarity(string &query, unordered_set<string> &allPaths);
+        void showFiles(map<double,string> &allPaths);
+        map<double,string> similarity(string &query, unordered_set<string> &allPaths);
 
 };
 
