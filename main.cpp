@@ -4,6 +4,7 @@
 #include <fstream>
 #include <filesystem>
 #include <ctime>
+#include <bits/stdc++.h>
 #include "searchEngine.h"
 
 namespace fs = std::filesystem;
@@ -51,14 +52,15 @@ int main(int argc, char *argv[])
 
     while(1){
         cout << "[mini search engine]: ";
-        string q;
-        getline(cin, q);
-        if (q == ".")
+        string query;
+        getline(cin, query);
+        if (query == ".")
             break;
 
-        unordered_set<string> allPaths = searchEngine.getPaths(q);
+        transform(query.begin(), query.end(), query.begin(), ::tolower);
+        unordered_set<string> allPaths = searchEngine.getPaths(query);
 
-        map<double,string> similarityScores = searchEngine.similarity(q, allPaths);
+        map<double,string> similarityScores = searchEngine.similarity(query, allPaths);
 
         searchEngine.showFiles(similarityScores);
     }

@@ -26,7 +26,7 @@ vector<string> splitString(string path){
                         currentWord = "";
                     }
                 }else{
-                    currentWord += ch;
+                    currentWord += tolower(ch);
                 }
             }
             res.push_back(currentWord);
