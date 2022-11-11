@@ -27,6 +27,10 @@ params:
 
 example: `./search-engine.exe --dir sample_webpages`
 
+## Screenshots
+![image](https://user-images.githubusercontent.com/65379600/201358348-2cde391d-8141-4b74-b0c7-96b78a3ae93c.png)
+![image](https://user-images.githubusercontent.com/65379600/201358422-bbd58005-b2a2-449c-8e0d-28227d4c252e.png)
+
 ## References
 
 - [The importance of search engines](https://www.inetasia.com/resources/articles-the-importance-of-search-engines.html)
