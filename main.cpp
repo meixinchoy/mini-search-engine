@@ -4,7 +4,6 @@
 #include <fstream>
 #include <filesystem>
 #include <ctime>
-#include <bits/stdc++.h>
 #include "searchEngine.h"
 
 namespace fs = std::filesystem;
